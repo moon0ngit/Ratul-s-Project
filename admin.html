@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin – Suggestions</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI, Tahoma, sans-serif;
+    background:#0a0e27;
+    color:#fff;
+}
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:30px 20px;
+}
+h2{
+    text-align:center;
+    color:#00f3ff;
+    margin-bottom:20px;
+}
+.admin-box{
+    text-align:center;
+    margin-bottom:30px;
+}
+input{
+    padding:10px;
+    width:80%;
+    max-width:300px;
+    border-radius:8px;
+    border:none;
+}
+button{
+    padding:10px 20px;
+    margin-top:10px;
+    border:none;
+    border-radius:20px;
+    background:#00ff88;
+    font-weight:700;
+    cursor:pointer;
+}
+.suggestion{
+    background:rgba(0,243,255,0.08);
+    border:1px solid #00f3ff;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:10px;
+}
+.time{
+    font-size:0.8rem;
+    color:#aaa;
+    margin-top:8px;
+}
+.hidden{
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Admin Panel – Suggestions</h2>
+
+    <div class="admin-box">
+        <input type="password" id="adminKey" placeholder="Enter admin key">
+        <br>
+        <button onclick="checkAdmin()">Access</button>
+    </div>
+
+    <div id="suggestions" class="hidden"></div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+/* 🔐 CHANGE THIS ADMIN KEY */
+const ADMIN_KEY = "MAGH-BISU-ADMIN-2026";
+
+/* Firebase Config */
+const firebaseConfig = {
+  apiKey: "AIzaSyCbpFn0EfrOgfeF6AYlvi-k-UCVGA_M9-E",
+  authDomain: "magh-bisu-attendance.firebaseapp.com",
+  projectId: "magh-bisu-attendance",
+  storageBucket: "magh-bisu-attendance.appspot.com",
+  messagingSenderId: "428413858396",
+  appId: "1:428413858396:web:76c3b6ad2fb6e8185c2c99"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+/* Admin check */
+function checkAdmin(){
+    const key = document.getElementById("adminKey").value.trim();
+    if(key !== ADMIN_KEY){
+        alert("Invalid admin key");
+        return;
+    }
+    document.querySelector(".admin-box").style.display = "none";
+    loadSuggestions();
+}
+
+/* Load suggestions */
+async function loadSuggestions(){
+    const box = document.getElementById("suggestions");
+    box.classList.remove("hidden");
+    box.innerHTML = "<p>Loading suggestions...</p>";
+
+    const snap = await db.collection("suggestions")
+                         .orderBy("timestamp", "desc")
+                         .get();
+
+    if(snap.empty){
+        box.innerHTML = "<p>No suggestions found.</p>";
+        return;
+    }
+
+    box.innerHTML = "";
+    snap.forEach(doc=>{
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "suggestion";
+
+        const time = data.timestamp
+            ? new Date(data.timestamp.seconds * 1000).toLocaleString()
+            : "Unknown time";
+
+        div.innerHTML = `
+            <div>${data.suggestion}</div>
+            <div class="time">📅 ${time}</div>
+        `;
+        box.appendChild(div);
+    });
+}
+</script>
+
+</body>
+</html>

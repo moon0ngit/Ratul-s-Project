@@ -259,7 +259,7 @@ async function markAttendance(){
 function submitFeedback(rating){
     document.querySelectorAll(".feedback-btn").forEach(b=>b.classList.remove("selected"));
     event.target.classList.add("selected");
-    setTimeout(()=>alert("Thank you for your "+rating+" feedback!"),200);
+    setTimeout(()=>alert("Thank you for your "+rating+" feedback!"),100);
 }
 
 init();
@@ -268,6 +268,7 @@ init();
 </body>
 
 </html>
+
 
 
 

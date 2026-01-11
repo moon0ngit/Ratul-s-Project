@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nangal Bhanga Magh Bisu Festival 2026</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI, Tahoma, sans-serif;
+    background:#0a0e27;
+    color:#fff;
+}
+.container{
+    max-width:600px;
+    margin:auto;
+    padding-bottom:40px;
+}
+.header{
+    background:linear-gradient(135deg,#d35400,#e67e22);
+    padding:40px 20px;
+    text-align:center;
+}
+.symbol{font-size:4rem;}
+.year{
+    font-size:2.5rem;
+    font-weight:900;
+    background:linear-gradient(90deg,#00f3ff,#ff00ff,#ffff00);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.description{
+    margin:20px;
+    padding:20px;
+    border:2px solid #00f3ff;
+    border-radius:12px;
+    text-align:center;
+}
+.attendance-section{
+    margin:30px 20px;
+    padding:30px;
+    border:3px solid #00ff88;
+    border-radius:15px;
+    text-align:center;
+}
+.attendance-count{
+    font-size:4rem;
+    font-weight:900;
+    color:#00ff88;
+}
+.attendance-btn{
+    margin-top:20px;
+    padding:15px 40px;
+    font-size:1.2rem;
+    font-weight:800;
+    border:none;
+    border-radius:30px;
+    background:#00ff88;
+    cursor:pointer;
+}
+.attendance-btn:disabled{
+    background:#777;
+    cursor:not-allowed;
+}
+.status-msg{margin-top:15px;font-weight:700;}
+
+.guest-section{
+    margin:30px 20px;
+    padding:25px;
+    border:2px solid #ff00ff;
+    border-radius:15px;
+    background:rgba(255,0,255,0.08);
+    text-align:center;
+}
+.guest-title{
+    font-size:1.2rem;
+    font-weight:900;
+    color:#ff00ff;
+    margin-bottom:10px;
+}
+.guest-name{
+    font-size:1.1rem;
+    font-weight:800;
+    color:#00f3ff;
+    margin-bottom:10px;
+}
+.guest-desc{
+    font-size:0.95rem;
+    line-height:1.6;
+    color:#ddd;
+}
+
+.footer{
+    margin-top:40px;
+    text-align:center;
+    padding:30px;
+    border-top:2px solid #00f3ff;
+}
+.feedback-btn{
+    margin:5px;
+    padding:10px 15px;
+    border-radius:20px;
+    border:2px solid #00f3ff;
+    background:transparent;
+    color:#00f3ff;
+    cursor:pointer;
+}
+.feedback-btn.selected{
+    background:#00ff88;
+    color:#000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="symbol">🙏</div>
+        <h2>WELCOME TO</h2>
+        <h1>NANGAL BHANGA<br>MAGH BISU FESTIVAL</h1>
+        <div class="year">2026</div>
+    </div>
+
+    <div class="description">
+        You are cordially invited to celebrate <b>Magh Bisu Festival-2026</b>,
+        showcasing Dimasa tradition, culture, and heritage.
+    </div>
+
+    <div class="attendance-section">
+        <div>Total Attendance</div>
+        <div class="attendance-count" id="attendanceCount">0</div>
+        <button id="attendanceBtn" class="attendance-btn">Mark Attendance</button>
+        <div id="statusMsg" class="status-msg"></div>
+    </div>
+
+    <!-- 🔷 GUEST SECTION -->
+    <div class="guest-section">
+        <div class="guest-title">NAME OF CHIEF GUEST</div>
+        <div class="guest-name">
+            SHRI MUKTESWAR KEMPRAI
+        </div>
+        <div class="guest-desc">
+            President, Dimasa Writers Forum <br>
+            Cum Secretary, Dimasa Peoples' Supreme Council <br>
+            Cum Secretary, Hidimba Justice Forum
+        </div>
+    </div>
+
+    <div class="guest-section">
+        <div class="guest-title">SPECIAL GUEST OF HONOUR</div>
+        <div class="guest-name">
+            ER. SUJIT SORONGPHANG
+        </div>
+        <div class="guest-desc">
+            Entrepreneur <br>
+            Social Worker
+        </div>
+    </div>
+
+    <div style="text-align:center">
+        <h3>Feedback</h3>
+        <button class="feedback-btn" onclick="submitFeedback('Excellent')">Excellent</button>
+        <button class="feedback-btn" onclick="submitFeedback('Very Good')">Very Good</button>
+        <button class="feedback-btn" onclick="submitFeedback('Good')">Good</button>
+        <button class="feedback-btn" onclick="submitFeedback('Average')">Average</button>
+        <button class="feedback-btn" onclick="submitFeedback('Poor')">Poor</button>
+    </div>
+
+    <div class="footer">
+        With gratitude, <b>Nangal Bhanga Magh Bisu Committee-2026</b><br>
+        Nisi Khrib ne bo Hamjaoma Khasaoma riladu!<br>
+        <b>Juthai</b>
+    </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCbpFn0EfrOgfeF6AYlvi-k-UCVGA_M9-E",
+  authDomain: "magh-bisu-attendance.firebaseapp.com",
+  projectId: "magh-bisu-attendance",
+  storageBucket: "magh-bisu-attendance.appspot.com",
+  messagingSenderId: "428413858396",
+  appId: "1:428413858396:web:76c3b6ad2fb6e8185c2c99"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function getDeviceId(){
+    let id = localStorage.getItem("magh_bisu_device");
+    if(!id){
+        id = "device_" + Math.random().toString(36).substring(2) + Date.now();
+        localStorage.setItem("magh_bisu_device", id);
+    }
+    return id;
+}
+
+const deviceId = getDeviceId();
+const countEl = document.getElementById("attendanceCount");
+const btn = document.getElementById("attendanceBtn");
+const msg = document.getElementById("statusMsg");
+
+async function init(){
+    const counterRef = db.collection("attendance").doc("counter");
+    const snap = await counterRef.get();
+
+    if(!snap.exists){
+        await counterRef.set({count:0});
+        countEl.innerText = 0;
+    }else{
+        countEl.innerText = snap.data().count;
+    }
+
+    const deviceSnap = await db.collection("devices").doc(deviceId).get();
+    if(deviceSnap.exists){
+        btn.disabled = true;
+        btn.innerText = "Attendance Marked ✓";
+    }
+
+    btn.addEventListener("click", markAttendance);
+}
+
+async function markAttendance(){
+    try{
+        btn.disabled = true;
+        await db.runTransaction(async (tx)=>{
+            const counterRef = db.collection("attendance").doc("counter");
+            const deviceRef = db.collection("devices").doc(deviceId);
+
+            const counterSnap = await tx.get(counterRef);
+            const deviceSnap = await tx.get(deviceRef);
+
+            if(deviceSnap.exists) return;
+
+            const current = counterSnap.exists ? counterSnap.data().count : 0;
+            tx.set(counterRef, {count: current + 1});
+            tx.set(deviceRef, {marked:true});
+        });
+
+        const updated = await db.collection("attendance").doc("counter").get();
+        countEl.innerText = updated.data().count;
+        btn.innerText = "Attendance Marked ✓";
+        msg.innerText = "Thank you for marking attendance!";
+    }catch(e){
+        btn.disabled = false;
+        msg.innerText = "Error. Try again.";
+    }
+}
+
+function submitFeedback(rating){
+    document.querySelectorAll(".feedback-btn").forEach(b=>b.classList.remove("selected"));
+    event.target.classList.add("selected");
+    setTimeout(()=>alert("Thank you for your "+rating+" feedback!"),200);
+}
+
+init();
+</script>
+
+</body>
+</html>

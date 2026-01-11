@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nangal Bhanga Magh Bisu Festival 2026</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Segoe UI, Tahoma, sans-serif;
+    background:#0a0e27;
+    color:#fff;
+}
+.container{
+    max-width:600px;
+    margin:auto;
+    padding-bottom:40px;
+}
+.header{
+    background:linear-gradient(135deg,#170644,#e67e22);
+    padding:40px 20px;
+    text-align:center;
+}
+.symbol{font-size:4rem;}
+.year{
+    font-size:2.5rem;
+    font-weight:900;
+    background:linear-gradient(90deg,#00f3ff,#ff00ff,#ffff00);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+.section{
+    margin:25px 20px;
+    padding:20px;
+    border-radius:12px;
+    border:2px solid #00f3ff;
+}
+.section h3{
+    text-align:center;
+    color:#00f3ff;
+    margin-bottom:15px;
+}
+.attendance-section{
+    border:3px solid #00ff88;
+    text-align:center;
+}
+.attendance-count{
+    font-size:4rem;
+    font-weight:900;
+    color:#00ff88;
+}
+.attendance-btn{
+    margin-top:15px;
+    padding:15px 40px;
+    font-size:1.1rem;
+    font-weight:800;
+    border:none;
+    border-radius:30px;
+    background:#00ff88;
+    cursor:pointer;
+}
+.attendance-btn:disabled{
+    background:#777;
+}
+.guest-section{
+    border:2px solid #ff00ff;
+    background:rgba(255,0,255,0.08);
+    text-align:center;
+}
+.feedback-btn, .donate-btn, .suggest-btn{
+    margin:6px;
+    padding:10px 18px;
+    border-radius:20px;
+    border:2px solid #00f3ff;
+    background:transparent;
+    color:#00f3ff;
+    cursor:pointer;
+}
+.feedback-btn.selected{
+    background:#00ff88;
+    color:#000;
+}
+textarea{
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    resize:none;
+}
+.footer{
+    margin-top:40px;
+    text-align:center;
+    padding:30px;
+    border-top:2px solid #00f3ff;
+}
+.map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 2px solid #00f3ff;
+    background: transparent;
+    color: #00f3ff;
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.map-link:hover {
+    background: rgba(0, 243, 255, 0.25);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
+    transform: scale(1.05);
+}
+.helpline-box {
+    margin: 25px 20px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #ff9800;
+    background: rgba(255, 152, 0, 0.1);
+}
+
+.helpline-box h3 {
+    text-align: center;
+    color: #ff9800;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.helpline-item {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+.helpline-item a {
+    color: #00f3ff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.helpline-item a:hover {
+    text-decoration: underline;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="symbol">🙏</div>
+        <h2>WELCOME TO</h2>
+        <h1>NANGAL BHANGA<br>MAGH BISU FESTIVAL</h1>
+        <div class="year">2026</div>
+    </div>
+
+    <!-- EVENT DETAILS -->
+    <div class="section">
+    <h3>Event Details</h3>
+
+    <p>
+        <b>📍 Venue:</b> Nangal Bhanga Village 
+        
+    </p>
+
+    <p><b>📅 Date:</b> 15th January 2026</p>
+    <p><b>⏰ Time:</b> 7:30 PM onwards</p>
+    <a class="map-link"
+           href="https://maps.app.goo.gl/mWBf4jk1H41z4KdB6?g_st=aw"
+           target="_blank">
+            🗺️ View Location on Map
+        </a>
+</div>
+
+
+    <!-- ATTENDANCE -->
+    <div class="section attendance-section">
+        <h3>Total Attendance</h3>
+        <div class="attendance-count" id="attendanceCount">0</div>
+        <button id="attendanceBtn" class="attendance-btn">Mark Attendance</button>
+        <div id="statusMsg"></div>
+    </div>
+
+    <!-- GUESTS -->
+    <div class="section guest-section">
+        <h3>Chief Guest</h3>
+        <b>SHRI MUKTESWAR KEMPRAI</b><br>
+        President, Dimasa Writers Forum<br>
+        Cum Secretary, Dimasa Peoples' Supreme Council<br>
+        Cum Secretary, Hidimba Justice Forum
+    </div>
+
+    <div class="section guest-section">
+        <h3>Special Guest of Honour</h3>
+        <b>ER. SUJIT SORONGPHANG</b><br>
+        Entrepreneur<br>
+        Social Worker
+    </div>
+
+    <!-- FEEDBACK -->
+    <div class="section">
+        <h3>Feedback</h3>
+        <button class="feedback-btn" onclick="submitFeedback('Excellent')">Excellent</button>
+        <button class="feedback-btn" onclick="submitFeedback('Very Good')">Very Good</button>
+        <button class="feedback-btn" onclick="submitFeedback('Good')">Good</button>
+        <button class="feedback-btn" onclick="submitFeedback('Average')">Average</button>
+        <button class="feedback-btn" onclick="submitFeedback('Poor')">Poor</button>
+    </div>
+
+    <!-- SUGGESTION -->
+    <div class="section">
+        <h3>Suggestions</h3>
+        <textarea id="suggestionText" rows="4" placeholder="Write your suggestion here..."></textarea><br><br>
+        <button class="suggest-btn" onclick="submitSuggestion()">Submit Suggestion</button>
+    </div>
+
+    <!-- DONATION -->
+    <div class="section" style="text-align:center">
+        <h3>Support Us (Donation)</h3>
+        <p>UPI ID: <b>thousenratul79-3@okaxis</b></p>
+        <button class="donate-btn" onclick="donate()">Donate via Google Pay</button>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Nisi Khrib ne bo Hamjaoma Khasaoma riladu! <b>Juthai</b><br><br>
+        © 2026 Nangal Bhanga Bisu Committee
+    </div>
+
+</div>
+<!--Helpline NUmbers-->
+<div class="helpline-box">
+    <h3>Helpline & Contact Numbers</h3>
+
+    <div class="helpline-item">
+        🚗 <b>Parking Helpline:</b>
+        <a href="tel:+919394215901">+91 93942 15901</a>
+    </div>
+
+    <div class="helpline-item">
+        ☎️ <b>Committee Contacts:</b><br>
+        <a href="tel:6003027073">6003027073</a>, 
+        <a href="tel:+918638472471">+91 86384 72471</a>, 
+        <a href="tel:+916901478511">+91 69014 78511</a>, 
+        <a href="tel:9707209100">9707209100</a>, 
+        <a href="tel:600049705">600049705</a>
+    </div>
+</div>
+
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCbpFn0EfrOgfeF6AYlvi-k-UCVGA_M9-E",
+  authDomain: "magh-bisu-attendance.firebaseapp.com",
+  projectId: "magh-bisu-attendance",
+  storageBucket: "magh-bisu-attendance.appspot.com",
+  messagingSenderId: "428413858396",
+  appId: "1:428413858396:web:76c3b6ad2fb6e8185c2c99"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function getDeviceId(){
+    let id = localStorage.getItem("magh_bisu_device");
+    if(!id){
+        id = "device_" + Math.random().toString(36).substring(2) + Date.now();
+        localStorage.setItem("magh_bisu_device", id);
+    }
+    return id;
+}
+
+const deviceId = getDeviceId();
+const countEl = document.getElementById("attendanceCount");
+const btn = document.getElementById("attendanceBtn");
+
+async function init(){
+    const ref = db.collection("attendance").doc("counter");
+    const snap = await ref.get();
+    if(!snap.exists) await ref.set({count:0});
+    countEl.innerText = (await ref.get()).data().count;
+
+    if((await db.collection("devices").doc(deviceId).get()).exists){
+        btn.disabled = true;
+        btn.innerText = "Attendance Marked ✓";
+    }
+    btn.onclick = markAttendance;
+}
+
+async function markAttendance(){
+    btn.disabled = true;
+    await db.runTransaction(async tx=>{
+        const cRef = db.collection("attendance").doc("counter");
+        const dRef = db.collection("devices").doc(deviceId);
+        if((await tx.get(dRef)).exists) return;
+        const c = (await tx.get(cRef)).data().count || 0;
+        tx.set(cRef,{count:c+1});
+        tx.set(dRef,{marked:true});
+    });
+    countEl.innerText = (await db.collection("attendance").doc("counter").get()).data().count;
+    btn.innerText = "Attendance Marked ✓";
+}
+
+function submitFeedback(r){
+    alert("Thank you for your "+r+" feedback!");
+}
+
+function submitSuggestion(){
+    const t = document.getElementById("suggestionText").value.trim();
+    if(!t) return alert("Please write a suggestion.");
+    alert("Thank you for your suggestion!");
+    document.getElementById("suggestionText").value="";
+}
+
+function donate(){
+    window.location.href =
+      "upi://pay?pa=thousenratul79-3@okaxis&pn=Nangal%20Bhanga%20Bisu%20Committee&cu=INR";
+}
+
+init();
+</script>
+
+</body>
+</html>
